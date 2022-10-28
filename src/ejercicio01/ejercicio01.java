@@ -1,19 +1,26 @@
 package ejercicio01;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class ejercicio01 {
-    public static void main(String[] args) {
+    private static Scanner sc=new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
         int opc = menu();
 
-        // Segin la opcion introducida debemos lanzar un proceso u otro.
+        // Segun la opcion introducida debemos lanzar un proceso u otro.
         // Todos los procesos son comandos de Windows, por lo que deben comenzar con cmd
 
         switch (opc) {
             // Si elige crear una carpeta, debo pedirle tambien la ruta donde quiere crearla
             // y el nombre de la carpeta
             case 1:
-                System.out.println("Introduzca ");
+                System.out.println("Indique la ruta:");
+                String path=sc.nextLine();
+                crearDirectorios(path);
                 break;
             // Si elige crear un fichero, debo pedirle tambien la ruta donde quiere crearlo
             // y el nombre del fichero
@@ -44,5 +51,22 @@ public class ejercicio01 {
         sc.close();
 
         return opc;
+    }
+    public static void crearDirectorios(String path) throws IOException {
+        final String commands[] = {"dir", "/"};
+        Process process = new ProcessBuilder(commands).start();
+        InputStream is = process.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        String line;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+        try {
+            int exitValue = process.waitFor();
+            System.out.println("\nCódigo de salida: "+ exitValue);
+        } catch (InterruptedException e) {
+            e.printStackTrace(System.err);
+        }
     }
 }
