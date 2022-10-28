@@ -13,6 +13,7 @@ public class ejercicio01 {
             // Si elige crear una carpeta, debo pedirle tambien la ruta donde quiere crearla
             // y el nombre de la carpeta
             case 1:
+                System.out.println("Introduzca ");
                 break;
             // Si elige crear un fichero, debo pedirle tambien la ruta donde quiere crearlo
             // y el nombre del fichero
