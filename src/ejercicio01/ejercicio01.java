@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class ejercicio01 {
     private static Scanner sc=new Scanner(System.in);
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         int opc = menu();
 
         // Segun la opcion introducida debemos lanzar un proceso u otro.
@@ -18,9 +18,7 @@ public class ejercicio01 {
             // Si elige crear una carpeta, debo pedirle tambien la ruta donde quiere crearla
             // y el nombre de la carpeta
             case 1:
-                System.out.println("Indique la ruta:");
-                String path=sc.nextLine();
-                crearDirectorios(path);
+                crearDirectorios.main();
                 break;
             // Si elige crear un fichero, debo pedirle tambien la ruta donde quiere crearlo
             // y el nombre del fichero
@@ -38,7 +36,6 @@ public class ejercicio01 {
     public static int menu() {
         // En opc guardaremos la opcion seleccionada por el usuario
         int opc;
-        Scanner sc = new Scanner(System.in);
 
         // Imprimimos el menu con las diversas opciones
         System.out.println("Elija que comando desea ejecutar:");
@@ -48,25 +45,8 @@ public class ejercicio01 {
 
         // Leemos la opcion de teclado
         opc = sc.nextInt();
-        sc.close();
 
         return opc;
     }
-    public static void crearDirectorios(String path) throws IOException {
-        final String commands[] = {"dir", "/"};
-        Process process = new ProcessBuilder(commands).start();
-        InputStream is = process.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
-        try {
-            int exitValue = process.waitFor();
-            System.out.println("\nCódigo de salida: "+ exitValue);
-        } catch (InterruptedException e) {
-            e.printStackTrace(System.err);
-        }
-    }
+
 }
